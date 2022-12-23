@@ -1,0 +1,43 @@
+:root {
+    --s:0px;
+    --b:  8px;
+    --g: 15px;
+    --c: #000;
+}
+ 
+
+.pp{
+    width: var(--s);
+    aspect-ratio: 1;
+    outline: calc(var(--s)/2) solid #fff;
+    outline-offset: calc(var(--s)/2);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pp:hover{
+    outline: var(--b) solid var(--c);
+    outline-offset: var(--g);
+}
+.pp{
+    border-radius: 50%;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+        --s:250px;
+        --b:  8px;
+        --g: 15px;
+        --c: rgb(255, 255, 255);
+	}
+    .pp{
+        width: var(--s);
+        aspect-ratio: 1;
+        outline: calc(var(--s)/2) solid #000;
+        outline-offset: calc(var(--s)/2);
+        cursor: pointer;
+        transition: 0.3s;
+    }
+}
+
