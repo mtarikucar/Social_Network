@@ -1,15 +1,18 @@
-import React from "react";
+import {useState} from "react";
 
 import "./index.scss"
 
 function Candle() {
+
+  const [open,setOpen] =useState(false)
+
   return (
-    <div>
+    <div onClick={()=> setOpen(!open)}>
           <div className="candle py-5">
-            <div className="candle-flame"></div>
+            {open ? <div className="candle-flame"></div>: <div className="candle-flame-empty"></div>}
+            
             <div className="candle-wick"></div>
             <div className="candle-wax"></div>
-            <div className="candle-stand"></div>
           </div>
     
     </div>

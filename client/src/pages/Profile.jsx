@@ -1,8 +1,12 @@
 import React from "react";
 import ProfilePicture from "../components/ProfilePicture";
+import { useParams } from "react-router-dom";
 function Profile() {
+
+  const {id} = useParams()
+
   return (
-    
+
         <main className="profile-page">
           <section className="relative block h-500-px">
             <div className="absolute top-0 w-full h-full bg-center bg-cover">
@@ -52,7 +56,7 @@ function Profile() {
                       <div className="flex justify-center py-4 lg:pt-4 pt-8">
                         <div className="mr-4 p-3 text-center">
                           <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                            22
+                            {id}
                           </span>
                           <span className="text-sm text-blueGray-400">
                             Friends

@@ -5,7 +5,7 @@ import "./index.css";
 function ProfilePicture() {
   return (
     <>
-      <img className="pp" src="../logo512.png" alt="" />
+      <img className="pp" src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg" alt="" />
     </>
   );
 }
