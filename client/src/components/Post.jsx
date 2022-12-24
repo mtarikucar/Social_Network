@@ -1,12 +1,12 @@
 import React from "react";
 
-import ProfilePicture from "./ProfilePicture";
+import ProfilePicture from "./Profile/ProfilePicture";
 function Post() {
   return (
     
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mt-4">
         
-        <div className="max-w-xs con  tainer bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+        <div className="max-w-md con  tainer bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
         <div className="flex p-4 justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-10 rounded">

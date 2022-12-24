@@ -25,12 +25,14 @@
 
 # todo:
 
+- search to what does it to react.strict mode
+- message box design overhaul
+- infinite scroll
 - svg setup (in barItem componenet contain it but it's not complate correctly)
 - routing
 - add redux slices
-- navbar component
-- post component
 - profile page
-- profile
-- 
+- community
+- 404 notfound page
+- message
 

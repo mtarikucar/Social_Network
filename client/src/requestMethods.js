@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const base_url = "http://localhost:5000/";
+const BASE_URL = "http://localhost:5000/";
 const TOKEN = "deneme";
 
 export const publicRequest = axios.create({
