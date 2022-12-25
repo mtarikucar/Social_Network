@@ -25,7 +25,10 @@
 
 # todo:
 
+## front
 - search to what does it to react.strict mode
+- modals and component as post and userlist come on top of each other !important
+- search to what does it to cors correctly
 - message box design overhaul
 - infinite scroll
 - svg setup (in barItem componenet contain it but it's not complate correctly)
@@ -36,3 +39,8 @@
 - 404 notfound page
 - message
 
+## server
+- databe models prepare
+- posts routers controllers enpoints
+- user authentication
+- community adding endpoint

@@ -54,7 +54,7 @@ export default function Sidebar() {
               open={open}
               url={"MessageBox"}
             />
-            <BarItem name={"Post"} path={"post"} open={open} url={"Post"} />
+            <BarItem name={"Settings"} path={"Settings"} open={open} url={"Settings"} />
           </ul>
         </div>
       </div>

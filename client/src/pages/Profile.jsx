@@ -2,11 +2,12 @@ import React from "react";
 import ProfilePicture from "../components/Profile/ProfilePicture";
 import { useParams } from "react-router-dom";
 
+
 import Post from "../components/Post";
 
 function Profile() {
   const { id } = useParams();
-
+ 
   return (
     <main className="profile-page snap-y snap-mandatory h-screen overflow-hidden hover:overflow-scroll grid grid-cols-1 gap-6 mb-6 scrollbar-hide">
       <section className="relative py-16 bg-blueGray-200 snap-start">
@@ -15,6 +16,8 @@ function Profile() {
             <div className="px-6">
               <div className="flex flex-wrap justify-center">
                 <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+     
+      
                   <div className="relative">
                     <ProfilePicture />
                   </div>
@@ -58,7 +61,9 @@ function Profile() {
                   </div>
                 </div>
               </div>
+        
               <div className="text-center mt-2">
+                
                 <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
                   Jenna Stones
                 </h3>
@@ -89,11 +94,14 @@ function Profile() {
             </div>
           </div>
         </div>
+        
         <div className="snap-start">
+        
           <div className="flex w-full">
             <div className="container mx-auto ">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6 scrollbar-hide">
                 <div className="snap-start ">
+                  
                   <Post />
                 </div>
                 <div className="snap-start">

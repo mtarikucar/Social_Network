@@ -6,7 +6,7 @@ function Post() {
     
       <div className="flex justify-center items-center mt-4">
         
-        <div className="max-w-md con  tainer bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+        <div className="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
         <div className="flex p-4 justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-10 rounded">
