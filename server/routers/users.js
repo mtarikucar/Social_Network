@@ -15,7 +15,7 @@ router.delete('/:id', verifyTokenAndAuthorization, deleteUser);
 router.get('/stats', verifyTokenAndAdmin, getUsersStats);   // must be here
 
 // GET => /api/users/:id
-router.get('/:id', verifyTokenAndAdmin, getUser);           // must be here
+router.get('/:id', getUser);           // must be here
 
 // GET => /api/users
 router.get('/', verifyTokenAndAdmin, getUsers);

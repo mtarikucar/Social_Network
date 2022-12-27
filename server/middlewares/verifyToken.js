@@ -1,16 +1,15 @@
-const jwt = require('jsonwebtoken');
+const JWT = require('jsonwebtoken');
 
 module.exports.verifyToken = (req, res, next) => {
   const authorization = req.get('Authorization');
   !authorization && res.status(400).json({ message: 'Not authenticated!' });
 
   const token = authorization.split(' ')[1];
-
   let payload;
   try {
     /* Returns the payload if the signature is valid.
     If not, it will throw the error. */
-    payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    payload = JWT.verify(token, process.env.JWT_SECRET);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -19,7 +18,7 @@ module.exports.verifyToken = (req, res, next) => {
 };
 
 module.exports.verifyTokenAndAuthorization = (req, res, next) => {
-  this.verifyToken(req, res, () => {
+  this.verifyToken(req, res, () => {    
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {

@@ -24,6 +24,9 @@ module.exports = (sequelize) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      image_path: {
+        type: DataTypes.STRING,
+      },
       password: {
         allowNull: false,
         type: DataTypes.STRING,
@@ -51,5 +54,5 @@ module.exports = (sequelize) => {
       timestamps: true,
     }
   );
-   // sequelize.sync({force:true}) //force: true
+   //sequelize.sync({force:true}) //force: true
 };

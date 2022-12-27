@@ -4,6 +4,9 @@ import BarItem from "./BarItem";
 import Candle from "../components/Candle";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/auth-actions";
+
+import { FiMessageSquare, FiUser, FiArrowLeft, FiHome, FiTool, FiUsers } from "react-icons/fi";
+
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch()
@@ -26,49 +29,36 @@ export default function Sidebar() {
           className={`${open ? "hidden" : ""}`}
           onClick={() => setOpen(!open)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 6h16M4 12h8m-8 6h16"
-            />
-          </svg>
+          <FiArrowLeft color="white" size={24}/>
         </button>
       </div>
       <div className="space-y-3 my-auto">
         <div className="flex-1">
           <ul className="pt-2 pb-4 space-y-1 text-sm ">
-            <BarItem name={"Home"} path={"home"} open={open} url={""} />
+            <BarItem name={"Home"} icon={<FiHome size={24} color="white"/>} open={open} url={""} />
             {currentUser && (
               <>
                 <BarItem
                   name={"Profile"}
-                  path={""}
+                  url={`Profile/${currentUser.userId}`}
                   open={open}
-                  url={"Profile"}
+                  icon={<FiUser size={24} color="white"/>}
                 />
                 <BarItem
                   name={"Community"}
-                  path={"growth"}
+                  icon={<FiUsers size={24} color="white"/>}
                   open={open}
                   url={"Community"}
                 />
                 <BarItem
                   name={"Message Box"}
-                  path={"window"}
+                  icon={<FiMessageSquare size={24} color="white"/>}
                   open={open}
                   url={"MessageBox"}
                 />
                 <BarItem
                   name={"Settings"}
-                  path={"Settings"}
+                  icon={<FiTool size={24} color="white"/>}
                   open={open}
                   url={"Settings"}
                 />

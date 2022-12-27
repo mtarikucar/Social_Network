@@ -26,22 +26,16 @@
 # todo:
 
 ## front
-- post and userlist z index control
-- search to what does it to cors correctly
 - message box design overhaul
 - infinite scroll
-- svg setup (in barItem componenet contain it but it's not complate correctly)
 - routing
-- add redux slices
-- profile page
 - community
 - 404 notfound page
 - message
 
 ## server
-- databe models prepare
-- posts routers controllers enpoints
-- user authentication
+- users endpoints
+- posts enpoints
 - community adding endpoint
 
 

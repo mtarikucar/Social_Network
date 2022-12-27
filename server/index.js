@@ -36,7 +36,7 @@ const authRoutes = require("./routers/auth")
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/products', postsRoutes);
-app.use('/api/carts', communityRoutes);
+app.use('/api/community', communityRoutes);
 app.use('/api/auth', authRoutes);
 
 app.listen(process.env.PORT, () => {
