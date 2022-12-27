@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../database/models/user.model');
 
 module.exports.updateUser = async (req, res) => {
   try {

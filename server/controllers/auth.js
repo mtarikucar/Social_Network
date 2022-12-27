@@ -1,70 +1,109 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const JWT = require("jsonwebtoken");
 
-const User = require('../models/User');
+const { models } = require("../database");
 
-module.exports.register = (req, res, next) => {
-  // !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
-  const isAdmin = req.body.isAdmin || false;
-  bcrypt.hash(password, 12)
-    .then(hashedPassword => {
-      const user = new User({
-        username,
-        email,
-        password: hashedPassword,
-        isAdmin
-      });
-      return user.save();
-    })
-    .then(user => {
-      res.status(201).json({
-        message: 'User is registered successfully.',
-        user
-      });
-    })
-    .catch(error => {
-      res.status(500).json(error);
+// Utils
+const { hash_password, verify_password } = require("../utils/password");
+
+async function register(req, res) {
+  const { profile_name, email, password } = req.body;
+  console.log( profile_name);
+  try {
+    const oldUser = await models.user.findOne({
+      where: {
+        email: email,
+        isDeleted: false,
+      },
     });
-};
 
-module.exports.login = (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  let user;
-  User.findOne({ username })
-    .then(foundUser => {
-      !foundUser && res.status(400).json({
-        message: 'Username is not valid!'
+    if (oldUser) {
+      return res.status(400).send("User Has Already Exist. Please Login");
+    }
+
+    bcrypt
+      .hash(password, 12)
+      .then((hashedPassword) => {
+        // Create user in our database
+        const user = models.user.create({
+          profile_name: profile_name,
+          email: email.toLowerCase(),
+          password: hash_password(password),
+          isAdmin: false,
+        });
+      })
+      .then((user) => {
+        res.status(201).json({
+          status: "success",
+          message: "User is registered successfully.",
+          user,
+        });
+      })
+      .catch((error) => {
+        res.status(500).json(error);
       });
-      user = foundUser;
-      return bcrypt.compare(password, user.password);
-    })
-    .then(isEqual => {
-      !isEqual && res.status(400).json({
-        message: 'Password is not correct!'
-      });
-      // Generate the JWT
-      const token = jwt.sign(
-        {
-          id: user._id.toString(),
-          isAdmin: user.isAdmin
-        },
-        process.env.JWT_SECRET_KEY,
-        {
-          expiresIn: '1d'
-        }
-      );
-      res.status(200).json({
-        message: 'User is logined successfully.',
-        token,
-        userId: user._id.toString(),
-        isAdmin: user.isAdmin
-      });
-    })
-    .catch(error => {
-      res.status(500).json(error);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "error at registered",
+      message: JSON.stringify(err),
     });
-};
+  }
+}
+
+async function login(req, res) {
+  // Params
+  const { email, password } = req.body;
+  try {
+    // Find User
+    const user = await models.user.findOne({
+      where: {
+        email: email,
+        isActive: true,
+        isDeleted: false,
+      },
+    });
+
+    // 404
+    if (!user) {
+      return res.status(404).json({
+        status: "notFound",
+        message: "User not found!",
+      });
+    }
+    const userJSON = user.toJSON();
+    if (!verify_password(password, userJSON.password)) {
+      return res.status(400).json({
+        status: "badRequest",
+        message: "Wrong Password!",
+      });
+    }
+
+    // Create token
+    const token = JWT.sign(
+      {
+        userId: user.id,
+      },
+      process.env.JWT_SECRET
+    );
+
+    // return new user
+    return res.status(200).json({
+      status: "success",
+      message: "User is logined successfully",
+      data: {
+        access_token: token,
+      },
+    });
+  } catch (err) {
+    // Error
+    console.log(err);
+    return res.status(500).json({
+      status: "error",
+      message: JSON.stringify(err),
+    });
+  }
+}
+
+module.exports = { login, register };

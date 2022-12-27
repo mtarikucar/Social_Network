@@ -39,7 +39,6 @@ app.use('/api/products', postsRoutes);
 app.use('/api/carts', communityRoutes);
 app.use('/api/auth', authRoutes);
 
-
 app.listen(process.env.PORT, () => {
   console.log(
     process.env.NODE_ENV && process.env.NODE_ENV === "development"

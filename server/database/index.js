@@ -1,6 +1,7 @@
-const Sequelize = require("sequelize");
+const { Sequelize } = require("sequelize");
 const { applyRelationships } = require("./relationships");
 
+// Connection
 const sequelize = new Sequelize(
   process.env.DB,
   process.env.USER,
@@ -21,23 +22,16 @@ const sequelize = new Sequelize(
 
 const modelDefiners = [
   require("./models/user.model"),
-/*   require("./models/post.model"),
-  require("./models/follower.model"),
-  require("./models/post_media_tag.model"),
-  require("./models/post_media.model"),
-  require("./models/post_type.model"),
-  require("./models/reaction.model"),
-  require("./models/community.model"),
-  require("./models/comment.model"), */
+  require("./models/post.model"),
 ];
 
 // We define all models according to their files.
 for (const modelDefiner of modelDefiners) {
-    modelDefiner(sequelize);
+  modelDefiner(sequelize);
 }
 
 // We execute any extra setup after the models are defined, such as adding associations.
-applyRelationships(sequelize);
+/* applyRelationships(sequelize); */
 
 // We export the sequelize connection instance to be used around our app.
 module.exports = sequelize;

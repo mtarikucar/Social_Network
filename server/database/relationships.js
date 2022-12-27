@@ -1,6 +1,19 @@
+const { DataTypes } = require("sequelize");
+
 function applyRelationships(sequelize) {
-    const { user, post, follower,post_media_tag,post_media,post_type,community,reaction,comment } = sequelize.models;
+  const {
+    user,
+    post
+  } = sequelize.models;
+
   
-  }
-  
-  module.exports = { applyRelationships };
+  // user-post
+  user.hasMany(post, {
+    foreignKey: "userId"
+  });
+  post.belongsTo(user);
+
+
+}
+
+module.exports = { applyRelationships };

@@ -10,22 +10,14 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      isActive: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-      },
-      isDeleted: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
       name_surname: {
-        allowNull: false,
         type: DataTypes.TEXT,
       },
-      phone_number: {
+      profile_name: {
         allowNull: false,
+        type: DataTypes.STRING,
+      },
+      phone_number: {
         type: DataTypes.STRING,
       },
       email: {
@@ -36,11 +28,28 @@ module.exports = (sequelize) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      isActive: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
+      isDeleted: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      isAdmin: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      }
     },
     {
       tableName: "users",
       createaAt: true,
       updatedAt: true,
+      timestamps: true,
     }
   );
+   // sequelize.sync({force:true}) //force: true
 };
