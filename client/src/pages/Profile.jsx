@@ -1,13 +1,21 @@
 import React from "react";
 import ProfilePicture from "../components/Profile/ProfilePicture";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+
 
 
 import Post from "../components/Post";
+import { useEffect } from "react";
 
 function Profile() {
-  const { id } = useParams();
- 
+  const {id} = useParams()
+  const auth = useSelector((store) => store.auth);
+  
+  useEffect(()=>{
+    
+  },[])
   return (
     <main className="profile-page snap-y snap-mandatory h-screen overflow-hidden hover:overflow-scroll grid grid-cols-1 gap-6 mb-6 scrollbar-hide">
       <section className="relative py-16 bg-blueGray-200 snap-start">

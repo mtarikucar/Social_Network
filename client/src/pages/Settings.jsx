@@ -1,20 +1,9 @@
-import React from 'react'
-import { createModal, useModals } from "../utils/modal";
-import Modal from "../modals";
+import React from "react";
+
 
 function Settings() {
-  const modals = useModals()
-  return (
-    <div>{modals.length > 0 && <Modal />}
-
-    <button
-      onClick={() => {
-        createModal("login");
-      }}
-    >
-      entier
-    </button></div>
-  )
+  const modals = useModals();
+  return <></>;
 }
 
-export default Settings
+export default Settings;

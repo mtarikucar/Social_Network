@@ -7,7 +7,7 @@ import {publicRequest} from "../requestMethods"
 
 function Posts({community}) {
 
-  const [posts, setPosts] = useState([]);
+/*   const [posts, setPosts] = useState([]);
 
   const getPosts = async () => {
     try {
@@ -21,7 +21,7 @@ function Posts({community}) {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, []); */
 
   return (
     <div className="flex w-full">

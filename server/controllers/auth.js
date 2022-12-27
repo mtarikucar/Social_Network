@@ -8,7 +8,7 @@ const { hash_password, verify_password } = require("../utils/password");
 
 async function register(req, res) {
   const { profile_name, email, password } = req.body;
-  console.log( profile_name);
+  console.log(profile_name);
   try {
     const oldUser = await models.user.findOne({
       where: {
@@ -23,14 +23,14 @@ async function register(req, res) {
 
     bcrypt
       .hash(password, 12)
-      .then((hashedPassword) => {
+      .then(() => {
         // Create user in our database
-        const user = models.user.create({
+        return (user = models.user.create({
           profile_name: profile_name,
           email: email.toLowerCase(),
           password: hash_password(password),
           isAdmin: false,
-        });
+        }));
       })
       .then((user) => {
         res.status(201).json({
@@ -40,9 +40,11 @@ async function register(req, res) {
         });
       })
       .catch((error) => {
-        res.status(500).json(error);
+        res.status(500).json({
+          status: "databse adding",
+          message: JSON.stringify(error),
+        });
       });
-
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -83,9 +85,13 @@ async function login(req, res) {
     // Create token
     const token = JWT.sign(
       {
-        userId: user.id,
+        id: user.id.toString(),
+        isAdmin: user.isAdmin,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
     );
 
     // return new user
@@ -93,7 +99,9 @@ async function login(req, res) {
       status: "success",
       message: "User is logined successfully",
       data: {
-        access_token: token,
+        token,
+        userId: user.id.toString(),
+        isAdmin: user.isAdmin
       },
     });
   } catch (err) {

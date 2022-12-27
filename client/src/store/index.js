@@ -18,8 +18,8 @@ import {
   
   // Combine the reducers first
   const rootReducer = combineReducers({
-    modal,
-    authSlice
+    modal: modal,
+    auth: authSlice
   });
   
   const persistConfig = {

@@ -2,8 +2,13 @@ import { useState } from "react";
 
 import BarItem from "./BarItem";
 import Candle from "../components/Candle";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../store/auth-actions";
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
+  const dispatch = useDispatch()
+  const { currentUser } = useSelector((store) => store.auth);
+
   return (
     <div
       className={` ${
@@ -41,20 +46,36 @@ export default function Sidebar() {
         <div className="flex-1">
           <ul className="pt-2 pb-4 space-y-1 text-sm ">
             <BarItem name={"Home"} path={"home"} open={open} url={""} />
-            <BarItem name={"Profile"} path={""} open={open} url={"Profile"} />
-            <BarItem
-              name={"Community"}
-              path={"growth"}
-              open={open}
-              url={"Community"}
-            />
-            <BarItem
-              name={"Message Box"}
-              path={"window"}
-              open={open}
-              url={"MessageBox"}
-            />
-            <BarItem name={"Settings"} path={"Settings"} open={open} url={"Settings"} />
+            {currentUser && (
+              <>
+                <BarItem
+                  name={"Profile"}
+                  path={""}
+                  open={open}
+                  url={"Profile"}
+                />
+                <BarItem
+                  name={"Community"}
+                  path={"growth"}
+                  open={open}
+                  url={"Community"}
+                />
+                <BarItem
+                  name={"Message Box"}
+                  path={"window"}
+                  open={open}
+                  url={"MessageBox"}
+                />
+                <BarItem
+                  name={"Settings"}
+                  path={"Settings"}
+                  open={open}
+                  url={"Settings"}
+                />
+                <button onClick={()=> dispatch(logout())}> <h1>logout</h1> bu buton profilede settingsin içine taşınacak</button>
+              </>
+
+            )}
           </ul>
         </div>
       </div>

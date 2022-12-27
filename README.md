@@ -26,8 +26,7 @@
 # todo:
 
 ## front
-- search to what does it to react.strict mode
-- modals and component as post and userlist come on top of each other !important
+- post and userlist z index control
 - search to what does it to cors correctly
 - message box design overhaul
 - infinite scroll
@@ -44,3 +43,9 @@
 - posts routers controllers enpoints
 - user authentication
 - community adding endpoint
+
+
+
+# fixed bugs
+
+- modals z index fixed
