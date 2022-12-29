@@ -7,17 +7,7 @@ function Home() {
   const modals = useModals()
   return (
     <>
-      <div>
-        {modals.length > 0 && <Modal />}
-
-        <button
-          onClick={() => {
-            createModal("login");
-          }}
-        >
-          entier
-        </button>
-      </div>
+      
       <Posts />
     </>
   );

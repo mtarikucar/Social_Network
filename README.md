@@ -26,6 +26,8 @@
 # todo:
 
 ## front
+- register state management remove from redux cause I realized that it's not necessary
+- remove account kısmına modal ile emin misin gelecek
 - message box design overhaul
 - infinite scroll
 - routing
@@ -34,7 +36,9 @@
 - message
 
 ## server
-- users endpoints
+- siActive, isDelete              
+- two factor authenticaation
+- sign in with google
 - posts enpoints
 - community adding endpoint
 

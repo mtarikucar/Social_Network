@@ -100,7 +100,7 @@ async function login(req, res) {
       message: "User is logined successfully",
       data: {
         token,
-        userId: user.id.toString(),
+        user: user,
         isAdmin: user.isAdmin
       },
     });

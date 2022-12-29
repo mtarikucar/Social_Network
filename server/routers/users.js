@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { updateUser, deleteUser, getUser, getUsers, getUsersStats } = require('../controllers/user');
+const { updateUser, deleteUser, getUser, getUsers, deleteUserPermanent } = require('../controllers/user');
 const { verifyTokenAndAuthorization, verifyTokenAndAdmin } = require('../middlewares/verifyToken');
 
 const router = express.Router();
@@ -11,8 +11,8 @@ router.patch('/:id', verifyTokenAndAuthorization, updateUser);
 // DELETE => /api/users/:id
 router.delete('/:id', verifyTokenAndAuthorization, deleteUser);
 
-// GET => /api/users/stats
-router.get('/stats', verifyTokenAndAdmin, getUsersStats);   // must be here
+// DELETE => /api/users/admin/:id
+router.delete('/admin/:id', verifyTokenAndAdmin, deleteUserPermanent);
 
 // GET => /api/users/:id
 router.get('/:id', getUser);           // must be here

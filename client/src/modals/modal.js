@@ -1,5 +1,7 @@
 import LoginModal from "./login";
 import RegisterModal from "./register";
+import editProfile from "./editProfile"
+import sharePost from "./sharePost"
 
 const modals = [
     {
@@ -9,6 +11,14 @@ const modals = [
     {
         name: "register",
         element: RegisterModal
+    },
+    {
+        name: "editProfile",
+        element: editProfile
+    },
+    {
+        name: "editProfile",
+        element: sharePost
     }
 ]
 

@@ -27,10 +27,20 @@ module.exports = (sequelize) => {
       image_path: {
         type: DataTypes.STRING,
       },
+      gender: {
+        type: DataTypes.STRING,
+      },
+      bio: {
+        type: DataTypes.TEXT,
+      },
+      website: {
+        type: DataTypes.STRING,
+      },
       password: {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      
       isActive: {
         allowNull: false,
         type: DataTypes.BOOLEAN,

@@ -4,7 +4,7 @@ import ProfilePicture from "./Profile/ProfilePicture";
 function Post() {
   return (
     
-      <div className="flex justify-center items-center mt-4">
+      <div className="flex justify-center items-center mt-4 z-0">
         
         <div className="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
         <div className="flex p-4 justify-between">

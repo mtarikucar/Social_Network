@@ -1,16 +1,18 @@
 const { models } = require("../database");
 
 async function updateUser(req, res) {
+  const { name_surname,phone_number,image_path,gender,bio,website  } = req.body;
   try {
-    const updatedUser = await models.user.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      {
-        new: true,
-      }
-    );
+    const updatedUser = await user.findByPk(req.params.id);
+
+    updateUser.save({
+      name_surname:name_surname,
+      phone_number:phone_number,
+      image_path:image_path,
+      gender:gender,
+      bio:bio,
+      website:website
+    })
     // updatedUser is the document after update because of new: true
     res.status(200).json({
       message: "User is updated successfully!",
@@ -23,7 +25,11 @@ async function updateUser(req, res) {
 
 async function deleteUser(req, res) {
   try {
-    await models.user.findByIdAndDelete(req.params.id);
+    const gonnaDeletedUser = await models.user.findByPk(req.params.id);
+    await gonnaDeletedUser.save({
+      isActive:  false,
+      isDeleted: true
+    })
     res.status(200).json({
       message: "User is deleted successfully!",
     });
@@ -32,13 +38,22 @@ async function deleteUser(req, res) {
   }
 }
 
+async function deleteUserPermanent(req, res) {
+  try {
+    const gonnaDeletedUser = await models.user.findByPk(req.params.id);
+    await gonnaDeletedUser.destroy()
+    res.status(200).json({
+      message: "User is deleted successfully!",
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+
 async function getUser(req, res) {
   try {
-    const user = await models.user.findOne({
-      where: {
-        id: req.params.id
-      },
-    });
+    const user = await models.user.findByPk(req.params.id);
     res.status(200).json({
       status: "success",
       message: "user",
@@ -63,29 +78,4 @@ async function getUsers(req, res) {
   }
 }
 
-async function getUsersStats(req, res) {
-  const date = new Date();
-  const lastYearDate = new Date(date.setFullYear(date.getFullYear() - 1)); // setFullYear returns a new timestamp.
-  try {
-    // TODO Make sure I understand it
-    const data = await models.user.aggregate([
-      { $match: { createdAt: { $gte: lastYearDate } } },
-      {
-        $project: {
-          month: { $month: "$createdAt" }, // Add a new field (month) with the $month of $createdAt
-        },
-      },
-      {
-        $group: {
-          _id: "$month",
-          total: { $sum: 1 },
-        },
-      },
-    ]);
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
-
-module.exports = { getUsersStats, getUsers, getUser, deleteUser, updateUser };
+module.exports = {  getUsers, getUser, deleteUser, updateUser,deleteUserPermanent };
