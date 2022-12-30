@@ -27,6 +27,7 @@
 
 ## front
 - register state management remove from redux cause I realized that it's not necessary
+- select component set custom style
 - remove account kısmına modal ile emin misin gelecek
 - message box design overhaul
 - infinite scroll
@@ -36,11 +37,12 @@
 - message
 
 ## server
-- siActive, isDelete              
+- siActive, isDelete          
 - two factor authenticaation
 - sign in with google
 - posts enpoints
 - community adding endpoint
+- kullanıcının etikleşim seviyesine göre yüklenen eklentilerin kalitesinin düşürülmesi artırılması
 
 
 

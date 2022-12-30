@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 // POST => /api/posts
-router.post('/', verifyTokenAndAuthorization, addPost);
+router.post('/', addPost);
 
 // PATCH => /api/posts/:id
 router.patch('/:id', verifyTokenAndAuthorization, updatePost);

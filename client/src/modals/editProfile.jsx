@@ -4,12 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { destroyAllModal } from "../utils/modal";
 import Header from "./components/header";
 import { logout } from "../store/auth-actions";
+
 export default function editProfileModal() {
   const dispatch = useDispatch();
-  const name_surname_ref = useRef();
-  const passwordRef = useRef();
-  const websiteRef = useRef();
-  const bioRef = useRef();
   const auth = useSelector((store) => store.auth);
 
   const formSubmitHandler = (e) => {
@@ -17,18 +14,17 @@ export default function editProfileModal() {
   };
 
   const save = (e) => {
-    e.preventDefault()
-
-  }
+    e.preventDefault();
+  };
   const out = (e) => {
     dispatch(destroyAllModal());
     dispatch(logout());
   };
 
   const removeAccount = (e) => {
-    out()
-    dispatch()
-  }
+    out();
+    dispatch();
+  };
   return (
     <>
       {auth.currentUser.user && (
@@ -69,11 +65,13 @@ export default function editProfileModal() {
               type="tel"
               placeholder="phone number"
             />
-            <select className="p-2 mb-4 border-2 rounded focus:outline-none">
-              <option value="" disabled selected>
-                Select your gender
-              </option>
-
+            <label htmlFor="underline_select" className="sr-only">
+              Underline select
+            </label>
+            <select
+              id="underline_select"
+              className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer "
+            >
               <option value="m">man</option>
 
               <option value="w">woman</option>
@@ -94,10 +92,7 @@ export default function editProfileModal() {
               {" "}
               <h1>logout</h1>
             </button>
-            <button
-              
-              onClick={() => removeAccount()}
-            >
+            <button onClick={() => removeAccount()}>
               {" "}
               <h1>remove account</h1>
             </button>

@@ -10,13 +10,19 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      profile_name: {
+      content:{
+        type: DataTypes.TEXT,
         allowNull: false,
+        defaultValue: ""
+      },
+      image_path: {
         type: DataTypes.STRING,
       },
-      content: {
-        allowNull: false,
-        type: DataTypes.TEXT
+      video_path: {
+        type: DataTypes.STRING,
+      },
+      audio_path: {
+        type: DataTypes.STRING,
       },
       isActive: {
         allowNull: false,
@@ -40,4 +46,5 @@ module.exports = (sequelize) => {
       timestamps: true,
     }
   );
+  //sequelize.sync({force:true}) //force: true
 };

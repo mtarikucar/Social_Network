@@ -1,27 +1,31 @@
 const { models } = require("../database");
 
 async function addPost(req, res) {
-  const { profile_name, email, password } = req.body;
+  const { content, image_path, video_path, voice_path, userId } = req.body;
 
   try {
-    
-        
-      
-        res.status(201).json({
-          status: "success",
-          message: "User is registered successfully.",
-          user,
-        });
-      
-        res.status(500).json({
-          status: "databse adding",
-          message: JSON.stringify(error),
-        });
-      
+    const post = await models.post.create({
+      content: content,
+      image_path: image_path,
+      video_path: video_path,
+      voice_path: voice_path,
+      userId:userId
+    });
+
+    res.status(201).json({
+      status: "success",
+      message: "post added successfully.",
+      post,
+    });
+
+    res.status(500).json({
+      status: "database adding",
+      message: JSON.stringify(error),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      status: "error at registered",
+      status: "error at add",
       message: JSON.stringify(err),
     });
   }
@@ -106,4 +110,11 @@ async function getPostsStats(req, res) {
   }
 }
 
-module.exports = { addPost, getPostsStats, getPosts, getPost, deletePost, updatePost };
+module.exports = {
+  addPost,
+  getPostsStats,
+  getPosts,
+  getPost,
+  deletePost,
+  updatePost,
+};

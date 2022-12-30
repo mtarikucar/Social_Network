@@ -1,4 +1,5 @@
 import { destroyAllModal } from "../../utils/modal"
+import {  FaWindowClose } from 'react-icons/fa';
 
 
 export default function Header({title}){

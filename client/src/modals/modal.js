@@ -17,7 +17,7 @@ const modals = [
         element: editProfile
     },
     {
-        name: "editProfile",
+        name: "sharePost",
         element: sharePost
     }
 ]

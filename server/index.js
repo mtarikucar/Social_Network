@@ -35,7 +35,7 @@ const authRoutes = require("./routers/auth")
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/products', postsRoutes);
+app.use('/api/posts', postsRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/auth', authRoutes);
 
