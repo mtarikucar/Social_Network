@@ -9,7 +9,7 @@ function Home() {
   return (
     <>
       <SendPost/>
-      <Posts />
+      <Posts/>
     </>
   );
 }

@@ -2,25 +2,20 @@ const { models } = require("../database");
 
 async function addPost(req, res) {
   const { content, image_path, video_path, voice_path, userId } = req.body;
-
+  console.log(req.body);
   try {
     const post = await models.post.create({
       content: content,
       image_path: image_path,
       video_path: video_path,
       voice_path: voice_path,
-      userId:userId
+      userId: userId,
     });
 
     res.status(201).json({
       status: "success",
       message: "post added successfully.",
       post,
-    });
-
-    res.status(500).json({
-      status: "database adding",
-      message: JSON.stringify(error),
     });
   } catch (err) {
     console.log(err);
@@ -33,7 +28,7 @@ async function addPost(req, res) {
 
 async function updatePost(req, res) {
   try {
-    const updatedPost = await models.Post.findByPk(req.params.id);
+    const updatedPost = await models.post.findByPk(req.params.id);
 
     console.log(req.body);
     // updatedPost is the document after update because of new: true
@@ -48,7 +43,7 @@ async function updatePost(req, res) {
 
 async function deletePost(req, res) {
   try {
-    const gonnaDeletePost = await models.Post.findByPk(req.params.id);
+    const gonnaDeletePost = await models.post.findByPk(req.params.id);
     await gonnaDeletePost.destroy();
     res.status(200).json({
       message: "Post is deleted successfully!",
@@ -59,8 +54,9 @@ async function deletePost(req, res) {
 }
 
 async function getPost(req, res) {
+  console.log(req.params);
   try {
-    const Post = await models.Post.findByPk(req.params.id);
+    const Post = await models.post.findByPk(req.params.id);
     res.status(200).json({
       status: "success",
       message: "Post",
@@ -74,14 +70,29 @@ async function getPost(req, res) {
 }
 
 async function getPosts(req, res) {
-  const query = req.query.new || false;
+  console.log(req.query);
   try {
-    const Posts = query
-      ? await models.Post.find().sort({ _id: -1 }).limit(5) // -1 => descending order & 1 => ascending order
-      : await models.Post.find();
-    res.status(200).json(Posts);
+    const { category, userId, limit } = req.query; // Destructuring the query parameters from the request
+    let whereClause = {}; // Initializing an empty where clause object for the Sequelize query
+
+    // If a category is provided in the query, add it to the where clause
+    if (category) {
+      whereClause.category = category;
+    }
+
+    // If a user ID is provided in the query, add it to the where clause
+    if (userId) {
+      whereClause.userId = userId;
+    }
+
+    // Execute the Sequelize findAll query, passing in the where clause and any desired limit
+    const posts = await models.post.findAll({ where: whereClause, limit: limit });
+    res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({
+      message:"error at get products",
+      data: error
+    });
   }
 }
 
@@ -90,7 +101,7 @@ async function getPostsStats(req, res) {
   const lastYearDate = new Date(date.setFullYear(date.getFullYear() - 1)); // setFullYear returns a new timestamp.
   try {
     // TODO Make sure I understand it
-    const data = await models.Post.aggregate([
+    const data = await models.post.aggregate([
       { $match: { createdAt: { $gte: lastYearDate } } },
       {
         $project: {

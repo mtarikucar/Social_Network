@@ -14,20 +14,28 @@ import {
   addPostSuccess,
 } from "./post-slice";
 
-export const getPosts = async (dispatch) => {
-  dispatch(getPostStart());
-  try {
-    const res = await publicRequest.get("/posts");
-    dispatch(getPostSuccess(res.data));
-  } catch (err) {
-    dispatch(getPostFailure());
-  }
+export const getPosts = (props) => {
+  return async (dispatch) => {
+    dispatch(getPostStart());
+    try {
+      let url = "/posts";
+
+      url = props.category ? url + `?category=${props.category}` : url;
+      url = props.userId ? url + `?userId=${props.userId}` : url;
+      url = props.limit ? url + `?limit=${props.limit}` : url;
+      const response = await publicRequest.get(url);
+
+      dispatch(getPostSuccess(response.data));
+    } catch (err) {
+      dispatch(getPostFailure());
+    }
+  };
 };
 
 export const deletePost = async (id) => {
   dispatch(deletePostStart());
   try {
-    // const res = await userRequest.delete(`/posts/${id}`);
+    // const res = await userRequest.findById(`/posts/${id}`);
     dispatch(deletePostSuccess(id));
   } catch (err) {
     dispatch(deletePostFailure());

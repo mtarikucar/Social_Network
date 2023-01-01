@@ -26,6 +26,7 @@
 # todo:
 
 ## front
+- posts lmit 10 default set
 - register state management remove from redux cause I realized that it's not necessary
 - select component set custom style
 - remove account kısmına modal ile emin misin gelecek

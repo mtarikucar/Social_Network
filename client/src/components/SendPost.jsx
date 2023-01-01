@@ -73,7 +73,9 @@ const SendPost = () => {
           dispatch(addPost({
             content: text,
             userId: currentUser.user.id,
-          }))          
+            
+          },
+          currentUser.token))          
         });
       }
     );
@@ -138,7 +140,7 @@ const SendPost = () => {
           </div>
         </div>
       </form>
-      {post.isFetching === true ? <LoadSpin/> : <></>}
+      
     </div>
   );
 };

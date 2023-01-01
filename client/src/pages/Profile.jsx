@@ -1,12 +1,12 @@
 import { useState } from "react";
 import ProfilePicture from "../components/Profile/ProfilePicture";
-import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useParams} from "react-router-dom";
+import { useSelector} from "react-redux";
 
-import Post from "../components/Post";
+import Posts from "../components/Posts";
 import { useEffect } from "react";
 
-import { publicRequest } from "../requestMethods";
+import { publicRequest, userRequest } from "../requestMethods";
 import { createModal, useModals } from "../utils/modal";
 import Modal from "../modals";
 
@@ -17,17 +17,12 @@ function Profile() {
 
   const [profile, setProfile] = useState({});
 
+  
   const getInfo = async () => {
-    const config = {
-      headers: {
-        Authorization: "Bearer " + auth.currentUser.token,
-      },
-    };
-
     try {
       setProfile({});
       const url = `/users/${id}`;
-      const response = await publicRequest.get(url, config);
+      const response = await userRequest.get(url);
       setProfile(response.data.data.user);
     } catch (error) {
       console.log(error);
@@ -48,19 +43,15 @@ function Profile() {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative">
-                      {profile.image_path && (
-                        <ProfilePicture imgpath={profile.image_path} />
-                      )}
+                      {profile.image_path ? (
+                        <ProfilePicture imgpath={profile.image_path} url={profile.id}/>
+                      ):
+                      <ProfilePicture url={profile.id}/>}
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center flex justify-center py-4 lg:pt-4 ">
                     <div className="py-6 px-3 sm:mt-0">
-                      <button
-                        className="bg-gray-800 active:bg-gray-900 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                      >
-                        Follow
-                      </button>
+                      
                       {modals.length > 0 && <Modal />}
                       {auth.currentUser &&
                       profile.id === auth.currentUser.user.id ? (
@@ -72,7 +63,12 @@ function Profile() {
                           profile settings
                         </button>
                       ) : (
-                        <></>
+                        <button
+                        className="bg-gray-800 active:bg-gray-900 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Follow
+                      </button>
                       )}
                     </div>
                   </div>
@@ -160,21 +156,7 @@ function Profile() {
             </div>
           </div>
           <div className="snap-start">
-            <div className="flex w-full">
-              <div className="container mx-auto ">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6 scrollbar-hide">
-                  <div className="snap-start ">
-                    <Post />
-                  </div>
-                  <div className="snap-start">
-                    <Post />
-                  </div>
-                  <div className="snap-start">
-                    <Post />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Posts userId={profile.id} />
           </div>
         </section>
       </main>

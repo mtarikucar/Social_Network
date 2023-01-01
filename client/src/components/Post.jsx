@@ -1,7 +1,30 @@
-import React from "react";
+import {useState} from "react";
 
 import ProfilePicture from "./Profile/ProfilePicture";
-function Post() {
+
+import { publicRequest } from "../requestMethods";
+
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
+function Post({post}) {
+  const auth = useSelector((store) => store.auth);
+
+  const [profile, setProfile] = useState({});
+  const getInfo = async () => {
+    try {
+      setProfile({});
+      const url = `/users/${post.userId}`;
+      const response = await publicRequest.get(url);
+      setProfile(response.data.data.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+    getInfo()
+  },[])
   return (
     
       <div className="flex justify-center items-center mt-4 z-0">
@@ -10,10 +33,10 @@ function Post() {
         <div className="flex p-4 justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-10 rounded">
-                <ProfilePicture/>
+                <ProfilePicture url={post.userId} />
               </div>
               <h2 className="text-gray-800 font-bold cursor-pointer">
-                Felipe Sacudon
+                {profile.profile_name}
               </h2>
             </div>
             <div className="flex space-x-2">
@@ -56,11 +79,8 @@ function Post() {
             </div>
           </div>
           <div>
-            <span className="text-white text-xs font-bold rounded-lg bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 cursor-pointer">
-              Home
-            </span>
             <h1 className="text-2xl mt-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100">
-              Lampara Look
+              {post.content}
             </h1>
             <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer">
               #by Saca Tuerca

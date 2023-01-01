@@ -1,12 +1,12 @@
 import { loginStart, loginSuccess, loginFailure, registerStart, registerSuccess, registerFailure,logoutStart, logoutSuccess, logoutFailure, } from './auth-slice';
-import { publicRequest } from '../requestMethods';
+import { userRequest } from '../requestMethods';
 import { destroyModal } from "../utils/modal";
 
 export const login = (user) => {
   return async (dispatch) => {
     dispatch(loginStart());
     try {
-      const response = await publicRequest.post('/auth/login', user);
+      const response = await userRequest.post('/auth/login', user);
       dispatch(loginSuccess(response.data.data));
       destroyModal()
     } catch (err) {
@@ -32,7 +32,7 @@ export const register = (user) => {
   return async (dispatch) => {
     dispatch(registerStart());
     try {
-      const response = await publicRequest.post('/auth/register', user);
+      const response = await userRequest.post('/auth/register', user);
       dispatch(registerSuccess(response.data));
       destroyModal();
     } catch (err) {

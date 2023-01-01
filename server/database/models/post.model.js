@@ -33,10 +33,6 @@ module.exports = (sequelize) => {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-      },
-      userId:{
-        allowNull: false,
-        type: DataTypes.UUID,
       }
     },
     {
